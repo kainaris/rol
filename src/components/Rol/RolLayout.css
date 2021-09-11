@@ -3,7 +3,7 @@
 .container {
     display: grid;
     grid-template-columns: 1fr minmax(auto, 1200px) 1fr;
-    grid-template-rows: 1fr;
+    grid-template-rows: 100vh;
     grid-auto-rows: 1fr;
     gap: 0px 0px;
     grid-auto-flow: row;
@@ -14,13 +14,12 @@
   .subcontainer {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto 1fr;
     gap: 0px 0px;
     grid-auto-flow: row;
     grid-template-areas:
       "user-account"
-      "editor"
-      "foot";
+      "editor";
     grid-area: subcontainer;
   }
   
@@ -36,6 +35,7 @@
       "filter"
       "result-tabs"
       "favorite-tabs"
+      "tab-content-options"
       "tab-content";
     grid-area: editor;
   }
@@ -48,29 +48,13 @@
   
   .tab-content {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
     gap: 0px 0px;
     grid-auto-flow: row;
     grid-template-areas:
-      "tab-subcontent"
-      "tab-content-options";
+      ". . .";
     grid-area: tab-content;
   }
   
-  .tab-subcontent {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-    grid-auto-columns: 1fr;
-    /* gap: 0px 1em; */
-    grid-auto-flow: row;
-    grid-template-areas:
-      ". . .";
-    grid-area: tab-subcontent;
-  }
-  
   .tab-content-options { grid-area: tab-content-options; }
-  
-  .foot { grid-area: foot; }
-  

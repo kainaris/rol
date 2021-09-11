@@ -2,7 +2,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 
 html {
@@ -15,7 +15,6 @@ div {
 
 .container {
   background-color: black;
-  height: 100vh;
   font-size: 25%;
 }
 
@@ -24,9 +23,9 @@ div {
 }
 
 .user-account {
-    background-color: gray;
-    padding: 1em;
-  }
+  background-color: gray;
+  padding: 1em;
+}
 
 .filter {
   background-color: darkgray;
@@ -34,38 +33,33 @@ div {
 }
 
 .result-tabs {
-    background-color: darkslateblue;
-  }
+  background-color: darkslateblue;
+}
 
 .favorite-tabs {
-    background-color: darkgoldenrod;
-  }
+  background-color: darkgoldenrod;
+}
+
+.editor {
+  overflow-y: auto;
+}
 
 .tab-content {
-  overflow-y: auto
-}
-
-.tab-subcontent {
   overflow-y: scroll;
-  overflow-x: hidden;
-
-  /* align-content: space-around; */
-  /* justify-content: space-between; */
 }
 
-.tab-subcontent > div {
+.tab-content > div {
   background-color: darkgray;
-  /* max-height: 50vh; */
 }
 
-.tab-subcontent > div > div {
+.tab-content > div > div {
   margin: 0.5em;
   background-color: white;
   border-radius: 0.7em;
   padding: 0.7em;
 }
 
-.tab-subcontent > div > div.open {
+.tab-content > div > div.open {
   height: 200px;
 }
 
@@ -73,21 +67,10 @@ div {
   background-color: darkgray;
 }
 
-.foot {
-  background-color: gray;
-  padding: 1em;
-}
-
-
-
-
-
-
-
 /* -------------------------------------------------------------------------------------- */
 
-
-button, input {
+button,
+input {
   font-size: 0.8em;
   font-weight: bold;
 

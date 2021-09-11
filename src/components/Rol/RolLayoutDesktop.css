@@ -1,0 +1,9 @@
+/* generated with https://grid.layoutit.com/ */
+
+@media (max-width: 960px) {
+  .tab-content {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      ".";
+  }
+}
