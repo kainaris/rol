@@ -1,0 +1,76 @@
+/* generated with https://grid.layoutit.com/ */
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr minmax(auto, 1200px) 1fr;
+    grid-template-rows: 1fr;
+    grid-auto-rows: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      ". subcontainer .";
+  }
+  
+  .subcontainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "user-account"
+      "editor"
+      "foot";
+    grid-area: subcontainer;
+  }
+  
+  .user-account { grid-area: user-account; }
+  
+  .editor {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "filter"
+      "result-tabs"
+      "favorite-tabs"
+      "tab-content";
+    grid-area: editor;
+  }
+  
+  .filter { grid-area: filter; }
+  
+  .result-tabs { grid-area: result-tabs; }
+  
+  .favorite-tabs { grid-area: favorite-tabs; }
+  
+  .tab-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "tab-subcontent"
+      "tab-content-options";
+    grid-area: tab-content;
+  }
+  
+  .tab-subcontent {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-auto-columns: 1fr;
+    /* gap: 0px 1em; */
+    grid-auto-flow: row;
+    grid-template-areas:
+      ". . .";
+    grid-area: tab-subcontent;
+  }
+  
+  .tab-content-options { grid-area: tab-content-options; }
+  
+  .foot { grid-area: foot; }
+  

@@ -1,0 +1,115 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+html {
+  font-size: 625%;
+}
+
+div {
+  /* border: 1px solid white; */
+}
+
+.container {
+  background-color: black;
+  height: 100vh;
+  font-size: 25%;
+}
+
+.subcontainer {
+  background-color: white;
+}
+
+.user-account {
+    background-color: gray;
+    padding: 1em;
+  }
+
+.filter {
+  background-color: darkgray;
+  text-align: end;
+}
+
+.result-tabs {
+    background-color: darkslateblue;
+  }
+
+.favorite-tabs {
+    background-color: darkgoldenrod;
+  }
+
+.tab-content {
+  overflow-y: auto
+}
+
+.tab-subcontent {
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  /* align-content: space-around; */
+  /* justify-content: space-between; */
+}
+
+.tab-subcontent > div {
+  background-color: darkgray;
+  /* max-height: 50vh; */
+}
+
+.tab-subcontent > div > div {
+  margin: 0.5em;
+  background-color: white;
+  border-radius: 0.7em;
+  padding: 0.7em;
+}
+
+.tab-subcontent > div > div.open {
+  height: 200px;
+}
+
+.tab-content-options {
+  background-color: darkgray;
+}
+
+.foot {
+  background-color: gray;
+  padding: 1em;
+}
+
+
+
+
+
+
+
+/* -------------------------------------------------------------------------------------- */
+
+
+button, input {
+  font-size: 0.8em;
+  font-weight: bold;
+
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+button {
+  /* height: 100%; */
+  height: 2em;
+
+  margin-left: 0.3em;
+  margin-right: 0.3em;
+
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+}
+
+input {
+  height: 2.5em;
+}
+
+.input-filter {
+  width: 20em;
+}
