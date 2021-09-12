@@ -64,7 +64,7 @@ div {
 }
 
 .tab-content-options {
-  background-color: darkgray;
+  background-color: gray;
 }
 
 /* -------------------------------------------------------------------------------------- */
@@ -95,4 +95,9 @@ input {
 
 .input-filter {
   width: 20em;
+}
+
+button.active {
+  color: white;
+  background-color: gray;
 }
