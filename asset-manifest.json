@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/rol/static/css/main.010ebdfa.chunk.css",
+    "main.js": "/rol/static/js/main.4b67d35d.chunk.js",
+    "main.js.map": "/rol/static/js/main.4b67d35d.chunk.js.map",
+    "runtime-main.js": "/rol/static/js/runtime-main.d0dd613a.js",
+    "runtime-main.js.map": "/rol/static/js/runtime-main.d0dd613a.js.map",
+    "static/js/2.9bef88a4.chunk.js": "/rol/static/js/2.9bef88a4.chunk.js",
+    "static/js/2.9bef88a4.chunk.js.map": "/rol/static/js/2.9bef88a4.chunk.js.map",
+    "static/js/3.fc119d30.chunk.js": "/rol/static/js/3.fc119d30.chunk.js",
+    "static/js/3.fc119d30.chunk.js.map": "/rol/static/js/3.fc119d30.chunk.js.map",
+    "index.html": "/rol/index.html",
+    "static/css/main.010ebdfa.chunk.css.map": "/rol/static/css/main.010ebdfa.chunk.css.map",
+    "static/js/2.9bef88a4.chunk.js.LICENSE.txt": "/rol/static/js/2.9bef88a4.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d0dd613a.js",
+    "static/js/2.9bef88a4.chunk.js",
+    "static/css/main.010ebdfa.chunk.css",
+    "static/js/main.4b67d35d.chunk.js"
+  ]
+}
