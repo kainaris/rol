@@ -3,7 +3,45 @@ import './RolLayout.css';
 import './RolLayoutDesktop.css';
 import React, { useEffect, useState } from "react";
 
+// import firebase from '../FirebaseConnect'
+// import { getDatabase, ref, set, onValue } from "firebase/database";
+
+import { writeUserData, getUserData } from '../FirebaseConnect'
+
 function Rol() {
+
+
+
+
+  // FIREBASE TEST
+  writeUserData(1, "pakko", "eeeeeeeeeeeeeeeeeeeeeeemail", "www.ooo.eee");
+  console.log(getUserData(1));
+  // =================
+
+
+
+  
+  // const db = getFirestore(fb);
+
+  // Get a list of cities from your database
+  // async function getCities(db) {
+  //   const citiesCol = collection(db, 'cities');
+  //   const citySnapshot = await getDocs(citiesCol);
+  //   const cityList = citySnapshot.docs.map(doc => doc.data());
+  //   return cityList;
+  // }
+
+  // const firebaseTest = () => {
+  //   firebase.database.
+
+  //   return (
+  //     <div>
+  //       {getCities(db).map(city => {
+  //         <p>{city.name}</p>
+  //       })}
+  //     </div>
+  //   );
+  // }
 
   const [currentTab, setCurrentTab] = useState(0);
 
@@ -39,7 +77,6 @@ function Rol() {
 
   return (
     <div className="wrapper">
-
       <div className="container">
         <div className="subcontainer">
           <div className="user-account">user account</div>
@@ -77,9 +114,9 @@ function Rol() {
 
             </div>
             <div className="tab-content-options">
-              <button>Crear nuevo {getTabName(currentTab)}</button>
+              <button className="other-button">➕ CREAR {getTabName(currentTab).toUpperCase()}</button>
               {(currentTab === 0 || currentTab === 4 || currentTab === 7 || currentTab === 11) &&
-              <button>Generar {getTabName(currentTab)} aleatorio</button>
+              <button className="other-button">🎲 GENERAR {getTabName(currentTab).toUpperCase()} ALEATORIO</button>
               }
             </div>
             <div className="tab-content">

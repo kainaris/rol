@@ -23,7 +23,7 @@ div {
 }
 
 .user-account {
-  background-color: gray;
+  background-color: darkgray;
   padding: 1em;
 }
 
@@ -33,11 +33,11 @@ div {
 }
 
 .result-tabs {
-  background-color: darkslateblue;
+  background-color: cornflowerblue;
 }
 
 .favorite-tabs {
-  background-color: darkgoldenrod;
+  background-color: khaki;
 }
 
 .editor {
@@ -46,6 +46,12 @@ div {
 
 .tab-content {
   overflow-y: scroll;
+}
+
+@media (max-width: 960px) {
+  .tab-content {
+    overflow-y: visible;
+  }
 }
 
 .tab-content > div {
@@ -64,10 +70,16 @@ div {
 }
 
 .tab-content-options {
-  background-color: gray;
+  background-color: darkgray;
 }
 
 /* -------------------------------------------------------------------------------------- */
+
+.other-button {
+  border-radius: 100px;
+  background-color: black;
+  color: white;
+}
 
 button,
 input {
@@ -99,5 +111,5 @@ input {
 
 button.active {
   color: white;
-  background-color: gray;
+  background-color: darkgray;
 }
