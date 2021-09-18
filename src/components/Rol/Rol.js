@@ -3,45 +3,44 @@ import './RolLayout.css';
 import './RolLayoutDesktop.css';
 import React, { useEffect, useState } from "react";
 
-// import firebase from '../FirebaseConnect'
-// import { getDatabase, ref, set, onValue } from "firebase/database";
+import { firebase } from '../initFirebase';
 
-import { writeUserData, getUserData } from '../FirebaseConnect'
+const db = firebase.database();
 
 function Rol() {
 
+  const [name, setName] = useState("pakko");
 
+  useEffect(() => {
+    const ref = db.ref('users/')
+    ref.on("value", (snapshot) => {
+      console.log(snapshot.val());
+    });
 
+    return () => ref.off();
+  })
 
-  // FIREBASE TEST
-  writeUserData(1, "pakko", "eeeeeeeeeeeeeeeeeeeeeeemail", "www.ooo.eee");
-  console.log(getUserData(1));
-  // =================
+  const firebasetest = () => {
+    return (
+      <div>
+        <input type="text" onChange={e => setName(e.target.value)} />
 
-
-
-  
-  // const db = getFirestore(fb);
-
-  // Get a list of cities from your database
-  // async function getCities(db) {
-  //   const citiesCol = collection(db, 'cities');
-  //   const citySnapshot = await getDocs(citiesCol);
-  //   const cityList = citySnapshot.docs.map(doc => doc.data());
-  //   return cityList;
-  // }
-
-  // const firebaseTest = () => {
-  //   firebase.database.
-
-  //   return (
-  //     <div>
-  //       {getCities(db).map(city => {
-  //         <p>{city.name}</p>
-  //       })}
-  //     </div>
-  //   );
-  // }
+        <button onClick={() => {
+          const usersRef = db.ref("users");
+          const newUserRef = usersRef.push();
+          newUserRef.set({
+            name: name,
+            num1: 111,
+            num2: 222,
+          })
+        }}>Write User!</button>
+        
+        {/* <p>namee={user}=eeman</p> */}
+        {/* <p>namee={users}=eeman</p> */}
+        
+      </div>
+    );
+  }
 
   const [currentTab, setCurrentTab] = useState(0);
 
@@ -62,6 +61,8 @@ function Rol() {
       case 11: return "Lugar";
       case 12: return "Evento";
       case 13: return "Audio";
+
+      default: break;
     }
   }
 
@@ -79,7 +80,12 @@ function Rol() {
     <div className="wrapper">
       <div className="container">
         <div className="subcontainer">
-          <div className="user-account">user account</div>
+          <div className="user-account">
+            user account
+
+            {firebasetest()}
+            
+          </div>
           <div className="editor">
             <div className="filter">
 
