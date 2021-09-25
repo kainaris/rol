@@ -1,3 +1,15 @@
+/* @search-bg: #80639b;
+@search-button: #c58ade;
+@favorites-bg: #f7db70;
+@favorites-button: #feb25e; */
+
+:root {
+  --search-bg: #80639b;
+  --search-button: #c58ade;
+  --favorites-bg: #f7db70;
+  --favorites-button: #feb25e;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -9,35 +21,46 @@ html {
   font-size: 625%;
 }
 
-div {
-  /* border: 1px solid white; */
-}
+/* div {
+  border: 1px solid white;
+} */
 
 .container {
   background-color: black;
+  color: white;
   font-size: 25%;
 }
 
-.subcontainer {
+/* .subcontainer {
   background-color: white;
-}
+} */
 
 .user-account {
-  background-color: darkgray;
+  /* background-color: darkgray; */
   padding: 1em;
 }
 
 .filter {
-  background-color: darkgray;
+  /* background-color: darkgray; */
+  background-color: var(--search-bg);
   text-align: end;
 }
 
 .result-tabs {
-  background-color: cornflowerblue;
+  background-color: var(--search-bg);
+}
+
+.result-tabs > button.active {
+  background-color: var(--search-button);
+  color: white;
 }
 
 .favorite-tabs {
-  background-color: khaki;
+  background-color: var(--favorites-bg);
+}
+
+.favorite-tabs > button.active {
+  background-color: var(--favorites-button);
 }
 
 .editor {
@@ -55,7 +78,12 @@ div {
 }
 
 .tab-content > div {
-  background-color: darkgray;
+  /* background-color: darkgray; */
+  background-color: var(--favorites-bg);
+}
+
+.tab-content.blue-bg > div {
+  background-color: var(--search-bg);
 }
 
 .tab-content > div > div {
@@ -70,7 +98,12 @@ div {
 }
 
 .tab-content-options {
-  background-color: darkgray;
+  /* background-color: darkgray; */
+  background-color: var(--favorites-bg);
+}
+
+.tab-content-options.blue-bg {
+  background-color: var(--search-bg);
 }
 
 /* -------------------------------------------------------------------------------------- */
@@ -107,9 +140,10 @@ input {
 
 .input-filter {
   width: 20em;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
-button.active {
+/* button.active {
   color: white;
   background-color: darkgray;
-}
+} */

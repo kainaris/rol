@@ -1,25 +1,23 @@
 import './Rol.css';
 import './RolLayout.css';
 import './RolLayoutDesktop.css';
-import React, {useEffect, useState} from "react";
-
-import { firebase } from '../initFirebase';
-
-const db = firebase.database();
+import { useEffect, useState } from "react";
+import { Categories, readUsers, writeUser, writeThing } from './utils/remoteData';
 
 function Rol() {
 
-  const [users, setUsers] = useState([]);
+  type UserType = {
+    id: number,
+    name: string,
+    password: string,
+  }
+
+  const [users, setUsers] = useState<UserType[]>([]);
   const [name, setName] = useState("pakko");
 
   useEffect(() => {
-    const ref = db.ref('users/');
-    ref.on("value", (snapshot) => {
-      console.log(snapshot.val());
-      setUsers(snapshot.val());
-    });
-    return() => ref.off();
-  })
+    return readUsers(userss => {setUsers(userss);});
+  }, [])
 
   const firebasetest = () => {
     return (
@@ -31,15 +29,14 @@ function Rol() {
 
         <button
           onClick={() => {
-            const usersRef = db.ref("users");
-            const newUserRef = usersRef.push();
-            newUserRef.set({name: name, num1: 111, num2: 222})
+            writeUser(name, 'pass');
+            writeThing("characters", 'a', 'e', 'i');
           }}>
           Write User!
         </button>
 
         {[...users].map(x => {
-          return <p>Name: {x.name} | </p>
+          return <p key={x.id}>Name: {x.name}</p>
         })}
 
         baba
@@ -47,36 +44,37 @@ function Rol() {
     );
   }
 
-  const [currentTab, setCurrentTab] = useState(0);
+  const [currentTab, setCurrentTab] = useState<Categories>('characters');
+  const [searching, setSearching] = useState(true);
 
-  const getTabName = tabNumber => {
-    switch (tabNumber) {
-      case 0: return "Personaje";
-      case 1: return "Habilidad";
-      case 2: return "Objeto";
-      case 3: return "Estado Alterado";
-      case 4: return "Lugar";
-      case 5: return "Evento";
-      case 6: return "Audio";
+  // const getTabName = (tabNumber: number) => {
+  //   // let search = true;
+  //   if (tabNumber > 6) {
+  //     tabNumber -= 7;
+  //     // search = false;
+  //   }
+  //   // setSearching(search);
+  //   return CategoriesArray[tabNumber];
+  // }
 
-      case 7: return "Personaje";
-      case 8: return "Habilidad";
-      case 9: return "Objeto";
-      case 10: return "Estado Alterado";
-      case 11: return "Lugar";
-      case 12: return "Evento";
-      case 13: return "Audio";
+  // const setCurrentTabb = (tabNumber: number) => {
+  //   setCurrentTab(tabNumber);
+  //   // let search = true;
+  //   // if (tabNumber > 6) {
+  //   //   // tabNumber -= 7;
+  //   //   search = false;
+  //   // }
+  //   setSearching(tabNumber < 7);
+  //   // return CategoriesArray[tabNumber];
+  // }
 
-      default: break;
-    }
-  }
-
-  const tabButton = (number, name) => {
+  const tabButton = (category: Categories) => {
     return (
       <button
-        onClick={() => setCurrentTab(number)}
-        className={currentTab === number ? "active" : ""}>
-        {name}
+        onClick={() => setCurrentTab(category)}
+        className={currentTab === category ? "active" : ""}>
+        {/* {number === 7 ? '⭐' : getTabName(number)} */}
+        {category.toString()}
       </button>
     );
   }
@@ -88,43 +86,44 @@ function Rol() {
 
           <div className="user-account">
             user account
-            {firebasetest()}
+            {/* {firebasetest()} */}
           </div>
 
           <div className="editor">
 
             {/* FILTER */}
             <div className="filter">
+              🔍
               <input className="input-filter" type="text" placeholder="Buscar..."></input>
             </div>
 
             {/* TABS SEARCH */}
             <div className="result-tabs">
-              🔍
-              { tabButton(0, "Personajes") }
-              { tabButton(1, "Habilidades") }
-              { tabButton(2, "Objetos") }
-              { tabButton(3, "Estados alterados") }
-              { tabButton(4, "Lugares") }
-              { tabButton(5, "Eventos") }
-              { tabButton(6, "Audio") }
+              { tabButton('characters') }
+              { tabButton('skills') }
+              { tabButton('items') }
+              { tabButton('status effects') }
+              { tabButton('places') }
+              { tabButton('events') }
+              { tabButton('audio') }
+              { tabButton('favorites') }
             </div>
 
             {/* TABS FAVORITES */}
-            <div className="favorite-tabs">
+            {/* <div className="favorite-tabs">
               ⭐
-              { tabButton(7, "Personajes") }
-              { tabButton(8, "Habilidades") }
-              { tabButton(9, "Objetos") }
-              { tabButton(10, "Estados alterados") }
-              { tabButton(11, "Lugares") }
-              { tabButton(12, "Eventos") }
-              { tabButton(13, "Audio") }
-            </div>
+              { tabButton(7) }
+              { tabButton(8) }
+              { tabButton(9) }
+              { tabButton(10) }
+              { tabButton(11) }
+              { tabButton(12) }
+              { tabButton(13) }
+            </div> */}
 
-            <div className="tab-content-options">
+            <div className={['tab-content-options', searching && 'blue-bg'].join(' ')}>
 
-              <button className="other-button">
+              {/* <button className="other-button">
                 ➕ CREAR { getTabName(currentTab).toUpperCase() }
               </button>
 
@@ -132,11 +131,11 @@ function Rol() {
               && 
               <button className="other-button">
                 🎲 GENERAR {getTabName(currentTab).toUpperCase()} ALEATORIO
-              </button>}
+              </button>} */}
             
             </div>
 
-            <div className="tab-content">
+            <div className={['tab-content', searching && 'blue-bg'].join(' ')}>
               <div>
                 <div className="open">1</div>
                 <div>2</div>
