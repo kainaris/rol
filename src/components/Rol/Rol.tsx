@@ -2,73 +2,61 @@ import './Rol.css';
 import './RolLayout.css';
 import './RolLayoutDesktop.css';
 import { useEffect, useState } from "react";
-import { Categories, readUsers, writeUser, writeThing } from './utils/remoteData';
+import { Category, readUsers, writeUser, writeThing } from '../remoteData';
 
 function Rol() {
 
-  type UserType = {
-    id: number,
-    name: string,
-    password: string,
+  type GoogleUserType = {
+    googleId: string;
+    imageUrl: string;
+    email: string;
+    name: string;
+    givenName: string;
+    familyName: string;
   }
 
-  const [users, setUsers] = useState<UserType[]>([]);
-  const [name, setName] = useState("pakko");
+  // type UserType = {
+  //   id: number,
+  //   name: string,
+  //   password: string,
+  // }
 
-  useEffect(() => {
-    return readUsers(userss => {setUsers(userss);});
-  }, [])
+  // const [users, setUsers] = useState<UserType[]>([]);
+  // const [name, setName] = useState("pakko");
 
-  const firebasetest = () => {
-    return (
-      <div>
+  // useEffect(() => {
+  //   return readUsers(userss => {setUsers(userss);});
+  // }, [])
 
-        <input
-          type="text"
-          onChange={e => setName(e.target.value)}/>
+  // const firebasetest = () => {
+  //   return (
+  //     <div>
 
-        <button
-          onClick={() => {
-            writeUser(name, 'pass');
-            writeThing("characters", 'a', 'e', 'i');
-          }}>
-          Write User!
-        </button>
+  //       <input
+  //         type="text"
+  //         onChange={e => setName(e.target.value)}/>
 
-        {[...users].map(x => {
-          return <p key={x.id}>Name: {x.name}</p>
-        })}
+  //       <button
+  //         onClick={() => {
+  //           writeUser({name, password: "pass"});
+  //           writeThing("characters", 'a', 'e', 'i');
+  //         }}>
+  //         Write User!
+  //       </button>
 
-        baba
-      </div>
-    );
-  }
+  //       {[...users].map(x => {
+  //         return <p key={x.id}>Name: {x.name}</p>
+  //       })}
 
-  const [currentTab, setCurrentTab] = useState<Categories>('characters');
+  //       baba
+  //     </div>
+  //   );
+  // }
+
+  const [currentTab, setCurrentTab] = useState<Category>('characters');
   const [searching, setSearching] = useState(true);
 
-  // const getTabName = (tabNumber: number) => {
-  //   // let search = true;
-  //   if (tabNumber > 6) {
-  //     tabNumber -= 7;
-  //     // search = false;
-  //   }
-  //   // setSearching(search);
-  //   return CategoriesArray[tabNumber];
-  // }
-
-  // const setCurrentTabb = (tabNumber: number) => {
-  //   setCurrentTab(tabNumber);
-  //   // let search = true;
-  //   // if (tabNumber > 6) {
-  //   //   // tabNumber -= 7;
-  //   //   search = false;
-  //   // }
-  //   setSearching(tabNumber < 7);
-  //   // return CategoriesArray[tabNumber];
-  // }
-
-  const tabButton = (category: Categories) => {
+  const tabButton = (category: Category) => {
     return (
       <button
         onClick={() => setCurrentTab(category)}
@@ -79,14 +67,30 @@ function Rol() {
     );
   }
 
+  const user: GoogleUserType = JSON.parse(localStorage.getItem("user") || "");
+
   return (
     <div className="wrapper">
       <div className="container">
         <div className="subcontainer">
 
           <div className="user-account">
-            user account
-            {/* {firebasetest()} */}
+
+            {user.name}
+
+            <img
+              className="profile-picture"
+              src={user.imageUrl} />
+
+            <button
+              className="userLogoffButton"
+              onClick={() => {
+                localStorage.removeItem("user");
+                window.location.reload();
+              }}>
+                LOG OFF
+            </button>
+
           </div>
 
           <div className="editor">
@@ -97,8 +101,8 @@ function Rol() {
               <input className="input-filter" type="text" placeholder="Buscar..."></input>
             </div>
 
-            {/* TABS SEARCH */}
-            <div className="result-tabs">
+            {/* TABS */}
+            <div className="tabs">
               { tabButton('characters') }
               { tabButton('skills') }
               { tabButton('items') }
@@ -108,18 +112,6 @@ function Rol() {
               { tabButton('audio') }
               { tabButton('favorites') }
             </div>
-
-            {/* TABS FAVORITES */}
-            {/* <div className="favorite-tabs">
-              ⭐
-              { tabButton(7) }
-              { tabButton(8) }
-              { tabButton(9) }
-              { tabButton(10) }
-              { tabButton(11) }
-              { tabButton(12) }
-              { tabButton(13) }
-            </div> */}
 
             <div className={['tab-content-options', searching && 'blue-bg'].join(' ')}>
 
