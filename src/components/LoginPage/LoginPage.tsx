@@ -1,11 +1,12 @@
-import GoogleLogin from 'react-google-login';
+import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 
 const LoginPage = () => {
 
-  const responseGoogle = (response) => {
-    console.log(response.profileObj);
-    if (response.profileObj) {
-      localStorage.setItem("user", JSON.stringify(response.profileObj));
+  const responseGoogle = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+    console.log(response);
+    const glr = response as GoogleLoginResponse;
+    if (glr) {
+      localStorage.setItem("user", JSON.stringify(glr.profileObj));
       window.location.reload(); }
     else window.alert("OH NO. SOMETHING IS WRONG."); }
 
@@ -19,6 +20,7 @@ const LoginPage = () => {
       clientId="557149397568-tid2cbi3kdaln9egknki6s64501h44en.apps.googleusercontent.com"
       onSuccess={responseGoogle}
       onFailure={responseGoogle}
+      // uxMode="redirect"
       cookiePolicy={'single_host_origin'} /> ); }
 
 export default LoginPage;

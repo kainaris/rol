@@ -2,72 +2,127 @@ import './Rol.css';
 import './RolLayout.css';
 import './RolLayoutDesktop.css';
 import { useEffect, useState } from "react";
-import { Category, readUsers, writeUser, writeThing } from '../remoteData';
+import { readCards, writeCard } from './remoteData';
 
-function Rol() {
+export type GoogleUserType = {
+  googleId: string;
+  imageUrl: string;
+  email: string;
+  name: string;
+  givenName: string;
+  familyName: string; }
+  
+export type CategoryType =
+  'characters' |
+  'skills' |
+  'items' |
+  'status effects' |
+  'places' |
+  'events' |
+  'audio' |
+  'favorites';
 
-  type GoogleUserType = {
-    googleId: string;
-    imageUrl: string;
-    email: string;
-    name: string;
-    givenName: string;
-    familyName: string;
+export type CardType = {
+  id: string,
+  category: CategoryType,
+  name: string,
+  description: string,
+  open: boolean }
+
+const Rol = () => {
+
+  // user
+  const user: GoogleUserType = JSON.parse(localStorage.getItem("user") || "");
+
+  // read cards
+  const [cards, setCards] = useState<CardType[]>([]);
+  useEffect(
+    () => readCards(
+      'characters',
+      cardss => {setCards(cardss)}),
+    [] ); // maybe put currentTab and/or searchFilters inside the [] ?
+
+  // write card
+  const [card, setCard] = useState<CardType>({
+    id: '',
+    category: 'characters',
+    name: '',
+    description: "desc desc desc desc desc desc desc dosc desc des desc desc desc desc dosc desc des desc desc desc desc dosc desc desc desc desc desc",
+    open: false });
+
+  const firebasetest = () => {
+    return (
+      <div>
+        <input
+          type="text"
+          onChange={e => {
+            const updatedCard = {
+              ...card,
+              name: e.target.value};
+            setCard(updatedCard); }}/>
+
+        <button
+          onClick={() => { writeCard(card, false); }}>
+          Write Card!</button>
+
+      </div>
+    );
   }
 
-  // type UserType = {
-  //   id: number,
-  //   name: string,
-  //   password: string,
-  // }
+  const [showingModal, setShowingModal] = useState(false);
 
-  // const [users, setUsers] = useState<UserType[]>([]);
-  // const [name, setName] = useState("pakko");
+  const firebasetest2 = () => {
+    return (<>
 
-  // useEffect(() => {
-  //   return readUsers(userss => {setUsers(userss);});
-  // }, [])
+      <button
+        onClick={() => setShowingModal(true)}>
+        Add Card</button>
 
-  // const firebasetest = () => {
-  //   return (
-  //     <div>
+      <div
+        className="modal-mask"
+        onClick={() => setShowingModal(false)}
+        hidden={!showingModal}>
+      </div>
+      
 
-  //       <input
-  //         type="text"
-  //         onChange={e => setName(e.target.value)}/>
+      <div
+        className="modal-window"
+        hidden={!showingModal}>
 
-  //       <button
-  //         onClick={() => {
-  //           writeUser({name, password: "pass"});
-  //           writeThing("characters", 'a', 'e', 'i');
-  //         }}>
-  //         Write User!
-  //       </button>
+        <button
+          className="card-close-button"
+          onClick={() => setShowingModal(false)}>
+          x</button>
 
-  //       {[...users].map(x => {
-  //         return <p key={x.id}>Name: {x.name}</p>
-  //       })}
+        <h3>add card</h3>
 
-  //       baba
-  //     </div>
-  //   );
-  // }
+        <input
+          type="text"
+          onChange={e => {
+            const updatedCard = {
+              ...card,
+              name: e.target.value};
+            setCard(updatedCard); }}/>
 
-  const [currentTab, setCurrentTab] = useState<Category>('characters');
+        <button
+          onClick={() => { writeCard(card, false); }}>
+          Write Card!</button>
+
+      </div>
+    </>);
+  }
+
+  const [cardsOpened, setCardsOpened] = useState<string[]>([]);
+  const [currentTab, setCurrentTab] = useState<CategoryType>('characters');
   const [searching, setSearching] = useState(true);
 
-  const tabButton = (category: Category) => {
+  const tabButton = (category: CategoryType) => {
     return (
       <button
         onClick={() => setCurrentTab(category)}
         className={currentTab === category ? "active" : ""}>
         {/* {number === 7 ? '⭐' : getTabName(number)} */}
-        {category.toString()}
-      </button>
-    );
-  }
-
-  const user: GoogleUserType = JSON.parse(localStorage.getItem("user") || "");
+        {category.toString()}</button> ); }
 
   return (
     <div className="wrapper">
@@ -75,7 +130,7 @@ function Rol() {
         <div className="subcontainer">
 
           <div className="user-account">
-
+            
             {user.name}
 
             <img
@@ -115,6 +170,8 @@ function Rol() {
 
             <div className={['tab-content-options', searching && 'blue-bg'].join(' ')}>
 
+              {firebasetest2()}
+
               {/* <button className="other-button">
                 ➕ CREAR { getTabName(currentTab).toUpperCase() }
               </button>
@@ -128,42 +185,21 @@ function Rol() {
             </div>
 
             <div className={['tab-content', searching && 'blue-bg'].join(' ')}>
-              <div>
-                <div className="open">1</div>
-                <div>2</div>
-                <div>3</div>
-                <div className="open">4</div>
-                <div className="open">5</div>
-                <div>1</div>
-                <div>2</div>
-                <div className="open">3</div>
-                <div className="open">4</div>
-                <div>5</div>
-              </div>
-              <div>
-                <div>1</div>
-                <div className="open">2</div>
-                <div>3</div>
-                <div>4</div>
-                <div>5</div>
-                <div className="open">1</div>
-                <div>2</div>
-                <div>3</div>
-                <div className="open">4</div>
-                <div className="open">5</div>
-              </div>
-              <div>
-                <div>1</div>
-                <div>2</div>
-                <div className="open">3</div>
-                <div className="open">4</div>
-                <div>5</div>
-                <div>1</div>
-                <div className="open">2</div>
-                <div>3</div>
-                <div>4</div>
-                <div>5</div>
-              </div>
+              <div>{[...cards].map(x => {
+                return <div
+                  className={"cardd" + (cardsOpened.includes(x.id) ? "" : " closed")}
+                  key={x.id}>
+                  <button
+                    className="card-close-button"
+                    onClick={() => {
+                      setCardsOpened(
+                        cardsOpened.includes(x.id)
+                        ? cardsOpened.filter(y => y !== x.id)
+                        : [...cardsOpened, x.id]);
+                    }}>
+                    <p>x</p></button>
+                  <h3>{x.name}</h3>
+                  {x.description}</div> })}</div>
             </div>
           </div>
         </div>
