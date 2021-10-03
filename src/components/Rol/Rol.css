@@ -126,20 +126,18 @@ html {
 } */
 
 .cardd {
-  /* background-color: white; */
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 0.7em;
-  /* padding: 0.7em; */
   padding-left: 0.7em;
   color: black;
   width: 100%;
   position: relative;
   overflow: hidden;
+  
+  height: auto;
 }
 
 .closed {
-  /* padding: 0;
-  padding-left: 0.7em; */
   height: 50px;
 }
 
@@ -233,7 +231,7 @@ input {
 }
 
 .input-filter {
-  width: 20em;
+  width: minmax(0, 20em);
   background-color: rgba(255, 255, 255, 0.5);
 }
 

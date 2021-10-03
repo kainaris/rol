@@ -1,8 +1,7 @@
 import './Rol.css';
 import './RolLayout.css';
-import './RolLayoutDesktop.css';
 import { useEffect, useState } from "react";
-import { readCards, writeCard } from './remoteData';
+import { readCards, writeCard, WriteCardType } from './remoteData';
 
 export type GoogleUserType = {
   googleId: string;
@@ -50,51 +49,63 @@ const Rol = () => {
     description: "desc desc desc desc desc desc desc dosc desc des desc desc desc desc dosc desc des desc desc desc desc dosc desc desc desc desc desc",
     open: false });
 
-  const firebasetest = () => {
-    return (
-      <div>
-        <input
-          type="text"
-          onChange={e => {
-            const updatedCard = {
-              ...card,
-              name: e.target.value};
-            setCard(updatedCard); }}/>
+  // const firebasetest = () => {
+  //   return (
+  //     <div>
+  //       <input
+  //         type="text"
+  //         onChange={e => {
+  //           const updatedCard = {
+  //             ...card,
+  //             name: e.target.value};
+  //           setCard(updatedCard); }}/>
 
-        <button
-          onClick={() => { writeCard(card, false); }}>
-          Write Card!</button>
+  //       <button
+  //         onClick={() => { writeCard(card, false); }}>
+  //         Write Card!</button>
 
-      </div>
-    );
-  }
+  //     </div>
+  //   );
+  // }
 
-  const [showingModal, setShowingModal] = useState(false);
+  const [showingModalToCreate, setShowingModalToCreate] = useState(false);
+  const [showingModalToUpdate, setShowingModalToUpdate] = useState(false);
+  const [canCreate, setCanCreate] = useState(false);
+  const [canUpdate, setCanUpdate] = useState(false);
 
-  const firebasetest2 = () => {
+  const checkModal = () => {
+    const show = showingModalToCreate || showingModalToUpdate;
+    console.log("show modal? " + show);
+    return show;
+  };
+
+  const hideAllModals = () => {
+    console.log("pls hide!");
+    setShowingModalToCreate(false);
+    setShowingModalToUpdate(false); }
+
+  // const setCardName = async (name: string) => {
+
+  // }
+
+  const buttonCreateCard = () => {
+
     return (<>
 
       <button
-        onClick={() => setShowingModal(true)}>
-        Add Card</button>
-
-      <div
-        className="modal-mask"
-        onClick={() => setShowingModal(false)}
-        hidden={!showingModal}>
-      </div>
-      
+        onClick={() => setShowingModalToCreate(true)}>
+        CREATE</button>
 
       <div
         className="modal-window"
-        hidden={!showingModal}>
+        hidden={!showingModalToCreate}>
 
         <button
           className="card-close-button"
-          onClick={() => setShowingModal(false)}>
+          onClick={() => setShowingModalToCreate(false)}>
           x</button>
 
-        <h3>add card</h3>
+        <h3>CREATE</h3>
 
         <input
           type="text"
@@ -102,15 +113,17 @@ const Rol = () => {
             const updatedCard = {
               ...card,
               name: e.target.value};
-            setCard(updatedCard); }}/>
+            setCard(updatedCard);
+            // const canCreatee = writeCard(updatedCard, 'just-check-if-can-create');
+            // console.log("canCreatee = " + canCreatee);
+            // setCanCreate(canCreatee === 'success');
+            }}/>
 
         <button
-          onClick={() => { writeCard(card, false); }}>
-          Write Card!</button>
-
-      </div>
-    </>);
-  }
+          disabled={!canCreate}
+          // onClick={() => { writeCard(card, 'create-new-if-name-doesnt-exist'); }}
+          >
+          CREATE</button></div></>); }
 
   const [cardsOpened, setCardsOpened] = useState<string[]>([]);
   const [currentTab, setCurrentTab] = useState<CategoryType>('characters');
@@ -127,6 +140,12 @@ const Rol = () => {
   return (
     <div className="wrapper">
       <div className="container">
+
+      <div
+        className="modal-mask"
+        onClick={hideAllModals}
+        hidden={!(showingModalToCreate || showingModalToUpdate)}></div>
+
         <div className="subcontainer">
 
           <div className="user-account">
@@ -170,7 +189,7 @@ const Rol = () => {
 
             <div className={['tab-content-options', searching && 'blue-bg'].join(' ')}>
 
-              {firebasetest2()}
+              {buttonCreateCard()}
 
               {/* <button className="other-button">
                 ➕ CREAR { getTabName(currentTab).toUpperCase() }

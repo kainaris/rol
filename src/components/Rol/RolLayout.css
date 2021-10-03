@@ -3,7 +3,7 @@
 .container {
   display: grid;
   /* grid-template-columns: 1fr minmax(auto, 1200px) 1fr; */
-  grid-template-columns: 1fr minmax(auto, 100vw) 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 100vw) minmax(0, 1fr);
   grid-template-rows: 100vh;
   grid-auto-rows: 1fr;
   gap: 0px 0px;
@@ -13,7 +13,7 @@
 
 .subcontainer {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto 1fr;
   gap: 0px 0px;
   grid-auto-flow: row;
@@ -29,7 +29,7 @@
 
 .editor {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   /* grid-template-rows: auto auto auto auto minmax(auto, 100vh); */
   grid-template-rows: auto auto auto auto 1fr;
   /* grid-template-rows: auto auto auto auto minmax(auto, 100%); */
@@ -52,6 +52,20 @@
 .tab-content > div {
   padding: 0.5em;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  /* grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); */
   gap: 10px;
+}
+
+@media (max-width: 960px) {
+  .tab-content {
+    color: red;
+    grid-template-columns: minmax(0, 1fr), minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 300px) {
+  .tab-content {
+    color: blue;
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
